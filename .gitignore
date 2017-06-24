@@ -42,6 +42,10 @@ cmake-build-debug/
 
 ## File-based project format:
 *.iws
+*.iml
+*.ipr
+.ideaDataSources/
+dataSources/
 
 ## Plugin-specific files:
 
@@ -118,6 +122,3 @@ local.properties
 
 # VS Code
 .vscode/
-
-*.iml
-*.ipr
