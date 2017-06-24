@@ -1,5 +1,13 @@
 package io.sylvanlibrary.api
 
+import ratpack.server.RatpackServer
+
 fun main(args: Array<String>) {
-    println("Hello, World!")
+  RatpackServer.start { server ->
+    server
+      .handlers { chain ->
+        chain
+          .get { ctx -> ctx.render("Hello World!") }
+      }
+  }
 }
