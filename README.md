@@ -17,7 +17,7 @@ database for you; you just need to create a local DB with the proper name and us
 
 First, create a user for use with the API:
 
-`createuser -d -P sylvan-library`
+`createuser -d -P sylvanlibrary`
 
 At the password prompt, enter `jacesucks`.
 
@@ -25,7 +25,7 @@ At the password prompt, enter `jacesucks`.
 
 Now, you should create a database _as the user you just created_:
 
-`createdb -U sylvan-library sylvan-library-api`
+`createdb -U sylvanlibrary sylvanapi`
 
 #### Test the connection
 
