@@ -1,20 +1,15 @@
-package io.sylvanlibrary.api.modules
+package io.sylvanlibrary.api.handlers
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.skife.jdbi.v2.DBI
-import org.skife.jdbi.v2.Handle
 import org.skife.jdbi.v2.util.IntegerMapper
 import ratpack.handling.Context
 import ratpack.handling.Handler
 
 class StatusInfoHandler : Handler {
   override fun handle(ctx: Context?) {
-    val config = HikariConfig()
-
-    config.jdbcUrl = "jdbc:postgresql://localhost:5432/sylvanapi"
-    config.username = "sylvanlibrary"
-    config.password = "jacesucks"
+    val config =  DbConfig.getConfig()
 
     val db = DBI(HikariDataSource(config)).open()
 
