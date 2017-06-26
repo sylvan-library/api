@@ -9,22 +9,36 @@ import ratpack.handling.Handler
 import ratpack.jackson.Jackson
 import io.sylvanlibrary.api.models.Set
 
-class SetsHandler : Handler {
-    override fun handle(ctx: Context?) {
-      val config = DbConfig.getConfig()
-      val conn = HikariDataSource(config)
-      val setDao = DBI(conn).open(SetDao::class.java)
+class SetsHandler {
 
-      val results = if (ctx!!.request.queryParams.containsKey("name")){
-        listOf<Set>()
-      } else{
-        setDao.all()
-      }
+  fun getSets(ctx: Context) {
+    val config = DbConfig.getConfig()
+    val conn = HikariDataSource(config)
+    val setDao = DBI(conn).open(SetDao::class.java)
 
-
-      setDao.close()
-      conn.close()
-
-      ctx!!.render(Jackson.json(results))
+    val results = if (ctx!!.request.queryParams.containsKey("name")) {
+      setDao.getByName("%${ctx.request.queryParams["name"]!!}%")
+    } else{
+      setDao.all()
     }
+
+
+    setDao.close()
+    conn.close()
+
+    ctx!!.render(Jackson.json(results))
+  }
+
+  fun getSetByAbbr(ctx: Context) {
+    val config = DbConfig.getConfig()
+    val conn = HikariDataSource(config)
+    val setDao = DBI(conn).open(SetDao::class.java)
+
+    val result = setDao.getByAbbr(ctx.pathTokens["abbr"]!!)
+
+    setDao.close()
+    conn.close()
+
+    ctx.render(Jackson.json(result))
+  }
 }

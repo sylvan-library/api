@@ -15,7 +15,8 @@ fun main(args: Array<String>) {
       .handlers { chain ->
         chain
           .path("status/info", StatusInfoHandler::class.java)
-          .path("sets", SetsHandler::class.java)
+          .path("sets") { SetsHandler().getSets(it) }
+          .path("sets/:abbr") { SetsHandler().getSetByAbbr(it) }
       }
   }
 }
