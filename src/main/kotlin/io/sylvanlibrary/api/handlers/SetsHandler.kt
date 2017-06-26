@@ -15,7 +15,12 @@ class SetsHandler : Handler {
       val conn = HikariDataSource(config)
       val setDao = DBI(conn).open(SetDao::class.java)
 
-      val results = setDao.all()
+      val results = if (ctx!!.request.queryParams.containsKey("name")){
+        listOf<Set>()
+      } else{
+        setDao.all()
+      }
+
 
       setDao.close()
       conn.close()
