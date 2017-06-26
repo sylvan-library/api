@@ -10,6 +10,7 @@ fun main(args: Array<String>) {
     server
       .registry(Guice.registry {
         it.bind(StatusInfoHandler::class.java)
+        it.bind(SetsHandler::class.java)
       })
       .handlers { chain ->
         chain
