@@ -35,7 +35,7 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
-mainClassName = 'io.sylvanlibrary.api.ApplicationKt'
+mainClassName = 'io.sylvanlibrary.api.Application'
 
 kotlin {
     experimental {

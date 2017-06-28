@@ -1,5 +1,6 @@
 package io.sylvanlibrary.api.daos
 
+import com.google.common.collect.ImmutableList
 import org.skife.jdbi.v2.sqlobject.SqlQuery
 import io.sylvanlibrary.api.models.Set
 import io.sylvanlibrary.api.models.SetResultSetMapper
@@ -13,10 +14,10 @@ interface SetDao {
   fun all(): List<Set>
 
   @SqlQuery("select * from sets where name like :name")
-  fun getByName(@Bind("name") name: String): List<Set>
+  fun byName(@Bind("name") name: String): List<Set>
 
   @SqlQuery("select * from sets where abbr = :abbr")
-  fun getByAbbr(@Bind("abbr") abbr: String): Set
+  fun byAbbr(@Bind("abbr") abbr: String): Set
 
   fun close()
 }
