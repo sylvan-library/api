@@ -7,16 +7,14 @@ import org.skife.jdbi.v2.sqlobject.Bind
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper
 
 @RegisterMapper(SetResultSetMapper::class)
-interface SetDao {
+interface SetDao: Dao {
 
   @SqlQuery("select * from sets")
   fun all(): List<Set>
 
-  @SqlQuery("select * from sets where name like :name")
+  @SqlQuery("select * from sets where UPPER(name) like UPPER(:name)")
   fun byName(@Bind("name") name: String): List<Set>
 
-  @SqlQuery("select * from sets where abbr = :abbr")
+  @SqlQuery("select * from sets where UPPER(abbr) = UPPER(:abbr)")
   fun byAbbr(@Bind("abbr") abbr: String): Set
-
-  fun close()
 }

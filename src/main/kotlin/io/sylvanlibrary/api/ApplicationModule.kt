@@ -15,6 +15,7 @@ class ApplicationModule : AbstractModule() {
     bind(SetRepository::class.java).to(SetRepositoryImpl::class.java)
     bind(SetService::class.java).to(SetServiceImpl::class.java)
     bind(StatusRepository::class.java).to(StatusRepositoryImpl::class.java)
+    bind(DbConnection::class.java)
   }
 
   @Provides
@@ -30,7 +31,7 @@ class ApplicationModule : AbstractModule() {
   }
 
   @Provides
-  fun provideDbConnection(hikariConfig: HikariConfig): DBI {
-    return DBI(HikariDataSource(hikariConfig))
+  fun provideHikariConnection(hikariConfig: HikariConfig): HikariDataSource {
+    return HikariDataSource(hikariConfig)
   }
 }
