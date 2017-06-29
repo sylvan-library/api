@@ -10,7 +10,7 @@ class SetServiceImpl @Inject constructor(val repo: SetRepository): SetService {
     val name = Optional.ofNullable(queryParams["name"])
 
     return if (name.isPresent) {
-      repo.byName("%${name.get()}%")
+      repo.byName(name.get())
     } else {
       repo.all()
     }
