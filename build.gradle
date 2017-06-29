@@ -33,6 +33,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 mainClassName = 'io.sylvanlibrary.api.Application'
