@@ -1,7 +1,6 @@
 package io.sylvanlibrary.api.repositories
 
 import com.google.inject.Inject
-import io.sylvanlibrary.api.daos.SetDao
 import io.sylvanlibrary.api.daos.StatusDao
 import org.skife.jdbi.v2.DBI
 

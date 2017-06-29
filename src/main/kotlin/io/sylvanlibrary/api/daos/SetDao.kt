@@ -1,6 +1,5 @@
 package io.sylvanlibrary.api.daos
 
-import com.google.common.collect.ImmutableList
 import org.skife.jdbi.v2.sqlobject.SqlQuery
 import io.sylvanlibrary.api.models.Set
 import io.sylvanlibrary.api.models.SetResultSetMapper

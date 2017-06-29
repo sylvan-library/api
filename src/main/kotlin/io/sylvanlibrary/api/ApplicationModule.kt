@@ -5,13 +5,8 @@ import com.google.inject.Provides
 import com.google.inject.Singleton
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.sylvanlibrary.api.repositories.DbConfig
-import io.sylvanlibrary.api.repositories.SetRepository
-import io.sylvanlibrary.api.repositories.SetRepositoryImpl
-import io.sylvanlibrary.api.repositories.StatusRepository
-import io.sylvanlibrary.api.repositories.StatusRepositoryImpl
-import io.sylvanlibrary.api.services.SetService
-import io.sylvanlibrary.api.services.SetServiceImpl
+import io.sylvanlibrary.api.repositories.*
+import io.sylvanlibrary.api.services.*
 import org.skife.jdbi.v2.DBI
 
 class ApplicationModule : AbstractModule() {
