@@ -13,10 +13,10 @@ interface SetDao {
   fun all(): List<Set>
 
   @SqlQuery("select * from sets where name like :name")
-  fun getByName(@Bind("name") name: String): List<Set>
+  fun byName(@Bind("name") name: String): List<Set>
 
   @SqlQuery("select * from sets where abbr = :abbr")
-  fun getByAbbr(@Bind("abbr") abbr: String): Set
+  fun byAbbr(@Bind("abbr") abbr: String): Set
 
   fun close()
 }
