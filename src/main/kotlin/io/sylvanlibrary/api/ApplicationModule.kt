@@ -5,9 +5,11 @@ import com.google.inject.Provides
 import com.google.inject.Singleton
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import io.sylvanlibrary.api.factories.DaoFactory
+import io.sylvanlibrary.api.factories.DaoFactoryImpl
 import io.sylvanlibrary.api.repositories.*
-import io.sylvanlibrary.api.services.*
-import org.skife.jdbi.v2.DBI
+import io.sylvanlibrary.api.services.SetService
+import io.sylvanlibrary.api.services.SetServiceImpl
 
 class ApplicationModule : AbstractModule() {
   override fun configure() {
@@ -15,7 +17,8 @@ class ApplicationModule : AbstractModule() {
     bind(SetRepository::class.java).to(SetRepositoryImpl::class.java)
     bind(SetService::class.java).to(SetServiceImpl::class.java)
     bind(StatusRepository::class.java).to(StatusRepositoryImpl::class.java)
-    bind(DbConnection::class.java)
+    bind(DbConnection::class.java).to(DbConnectionImpl::class.java)
+    bind(DaoFactory::class.java).to(DaoFactoryImpl::class.java).`in`(Singleton::class.java)
   }
 
   @Provides
