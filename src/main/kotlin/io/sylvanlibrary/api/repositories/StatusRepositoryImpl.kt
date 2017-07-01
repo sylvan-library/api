@@ -2,14 +2,12 @@ package io.sylvanlibrary.api.repositories
 
 import com.google.inject.Inject
 import io.sylvanlibrary.api.daos.StatusDao
-import org.skife.jdbi.v2.DBI
 
-class StatusRepositoryImpl @Inject constructor(val conn: DBI): StatusRepository {
+class StatusRepositoryImpl @Inject constructor(val conn: DbConnection): StatusRepository {
   override fun check(): Boolean {
-    val statusDao = conn.open(StatusDao::class.java)
-    val result = statusDao.check()
-
-    statusDao.close()
+    val result: Int = conn.open(StatusDao::class.java) { statusDao ->
+      statusDao.check()
+    }
 
     return result > 0
   }
