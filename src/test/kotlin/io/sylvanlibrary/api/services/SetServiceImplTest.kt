@@ -28,7 +28,7 @@ class SetServiceImplTest {
     initMocks(this)
 
     `when`(setRepositoryMock.all()).thenReturn(ALL_SETS)
-    `when`(setRepositoryMock.byName("%$TEST_NAME%")).thenReturn(FILTERED_SETS)
+    `when`(setRepositoryMock.byName(TEST_NAME)).thenReturn(FILTERED_SETS)
 
     classUnderTest = SetServiceImpl(setRepositoryMock)
   }

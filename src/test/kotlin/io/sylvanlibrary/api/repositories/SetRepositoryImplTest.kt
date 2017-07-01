@@ -2,6 +2,7 @@ package io.sylvanlibrary.api.repositories
 
 import io.sylvanlibrary.api.daos.SetDao
 import io.sylvanlibrary.api.fixtures.SetFixture
+import io.sylvanlibrary.api.mocks.MockDbConnection
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -9,12 +10,11 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations.initMocks
-import org.skife.jdbi.v2.DBI
 import java.util.*
 
 class SetRepositoryImplTest {
-  @Mock lateinit var dbiMock: DBI
   @Mock lateinit var setDaoMock: SetDao
+  lateinit var dbConnectionMock: DbConnection
 
   lateinit var classUnderTest: SetRepositoryImpl
 
@@ -27,9 +27,8 @@ class SetRepositoryImplTest {
   fun setUp() {
     initMocks(this)
 
-    `when`(dbiMock.open(SetDao::class.java)).thenReturn(setDaoMock)
-
-    classUnderTest = SetRepositoryImpl(dbiMock)
+    dbConnectionMock = MockDbConnection(setDaoMock)
+    classUnderTest = SetRepositoryImpl(dbConnectionMock)
   }
 
   @Test
@@ -50,12 +49,6 @@ class SetRepositoryImplTest {
   }
 
   @Test
-  fun testAll_itClosesTheDao() {
-    classUnderTest.all()
-    verify(setDaoMock, times(1)).close()
-  }
-
-  @Test
   fun testByAbbr_itReturnsAnOptionalOfSets() {
     val expectedResult = Optional.of(SetFixture.SET)
 
@@ -73,16 +66,10 @@ class SetRepositoryImplTest {
   }
 
   @Test
-  fun testByAbbr_itClosesTheDao() {
-    classUnderTest.byAbbr(TEST_ABBR)
-    verify(setDaoMock, times(1)).close()
-  }
-
-  @Test
   fun testByName_itReturnsAListOfSets() {
     val expectedResult = listOf(SetFixture.SET)
 
-    `when`(setDaoMock.byName(TEST_NAME)).thenReturn(expectedResult)
+    `when`(setDaoMock.byName("%$TEST_NAME%")).thenReturn(expectedResult)
 
     val result = classUnderTest.byName(TEST_NAME)
 
@@ -92,12 +79,6 @@ class SetRepositoryImplTest {
   @Test
   fun testByName_itInvokesTheDaoMethod() {
     classUnderTest.byName(TEST_NAME)
-    verify(setDaoMock, times(1)).byName(TEST_NAME)
-  }
-
-  @Test
-  fun testByName_itClosesTheDao() {
-    classUnderTest.byName(TEST_NAME)
-    verify(setDaoMock, times(1)).close()
+    verify(setDaoMock, times(1)).byName("%$TEST_NAME%")
   }
 }

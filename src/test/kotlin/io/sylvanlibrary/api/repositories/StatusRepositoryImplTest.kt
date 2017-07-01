@@ -1,19 +1,19 @@
 package io.sylvanlibrary.api.repositories
 
 import io.sylvanlibrary.api.daos.StatusDao
+import io.sylvanlibrary.api.mocks.MockDbConnection
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations.*
-import org.skife.jdbi.v2.DBI
-import org.hamcrest.CoreMatchers.*
-import org.junit.Assert.assertThat
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations.initMocks
 
 
 class StatusRepositoryImplTest {
-  @Mock lateinit var dbiMock: DBI
   @Mock lateinit var statusDaoMock: StatusDao
+  lateinit var dbConnectionMock: MockDbConnection
 
   lateinit var classUnderTest: StatusRepositoryImpl
 
@@ -21,9 +21,8 @@ class StatusRepositoryImplTest {
   fun setUp() {
     initMocks(this)
 
-    `when`(dbiMock.open(StatusDao::class.java)).thenReturn(statusDaoMock)
-
-    classUnderTest = StatusRepositoryImpl(dbiMock)
+    dbConnectionMock = MockDbConnection(statusDaoMock)
+    classUnderTest = StatusRepositoryImpl(dbConnectionMock)
   }
 
   @Test
@@ -42,11 +41,5 @@ class StatusRepositoryImplTest {
     val result = classUnderTest.check()
 
     assertThat(result, equalTo(false))
-  }
-
-  @Test
-  fun testCheck_itClosesTheDbConnection() {
-    classUnderTest.check()
-    verify(statusDaoMock, times(1)).close()
   }
 }
