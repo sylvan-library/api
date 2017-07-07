@@ -1,9 +1,10 @@
 package io.sylvanlibrary.api
 
-import io.sylvanlibrary.api.renderers.Renderer
+import io.sylvanlibrary.api.renderers.RenderHandler
 import io.sylvanlibrary.api.repositories.StatusRepository
-import io.sylvanlibrary.api.services.SetService
+import io.sylvanlibrary.api.services.SetHandlers
 import ratpack.guice.Guice
+import ratpack.handling.Handlers
 import ratpack.server.RatpackServer
 
 class Application {
@@ -13,15 +14,13 @@ class Application {
       RatpackServer.start { server ->
         server
           .registry(Guice.registry { it.module(ApplicationModule::class.java) })
-
           .handlers { chain ->
             chain
               .prefix("sets") { sets ->
                 sets
-                  .get { ctx -> ctx.get(Renderer::class.java).render(ctx) { ctx.get(SetService::class.java).index(ctx.request.queryParams) } }
-                  .get(":abbr") { ctx -> ctx.get(Renderer::class.java).render(ctx) { ctx.get(SetService::class.java).view(ctx.pathTokens["abbr"]!!) } }
+                  .get(Handlers.chain(SetHandlers.index(), RenderHandler()))
+                  .get(":abbr", Handlers.chain(SetHandlers.view(), RenderHandler()))
               }
-
               .path("status/info") { ctx ->
                 val goodConnection = ctx.get(StatusRepository::class.java).check()
 

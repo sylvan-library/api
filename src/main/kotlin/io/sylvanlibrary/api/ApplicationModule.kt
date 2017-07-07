@@ -7,7 +7,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.sylvanlibrary.api.factories.DaoFactory
 import io.sylvanlibrary.api.factories.DaoFactoryImpl
-import io.sylvanlibrary.api.renderers.*
 import io.sylvanlibrary.api.repositories.*
 import io.sylvanlibrary.api.services.SetService
 import io.sylvanlibrary.api.services.SetServiceImpl
@@ -20,7 +19,6 @@ class ApplicationModule : AbstractModule() {
     bind(StatusRepository::class.java).to(StatusRepositoryImpl::class.java)
     bind(DbConnection::class.java).to(DbConnectionImpl::class.java)
     bind(DaoFactory::class.java).to(DaoFactoryImpl::class.java).`in`(Singleton::class.java)
-    bind(Renderer::class.java).to(RendererImpl::class.java).`in`(Singleton::class.java)
   }
 
   @Provides
