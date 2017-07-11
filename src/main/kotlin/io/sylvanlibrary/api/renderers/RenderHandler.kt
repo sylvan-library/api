@@ -10,10 +10,10 @@ import java.util.*
 
 class RenderHandler: Handler {
   override fun handle(ctx: Context) {
-    var queryResult = ctx.get(QueryResult::class.java)
+    var queryResult = ctx.maybeGet(QueryResult::class.java)
 
-    var result = if (queryResult != null) {
-      queryResult.result
+    var result = if (queryResult.isPresent) {
+      queryResult.get().result
     } else {
       ctx.response.status(404)
       null
