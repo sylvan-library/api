@@ -1,4 +1,4 @@
-package io.sylvanlibrary.api.renderers
+package io.sylvanlibrary.api.handlers
 
 import io.sylvanlibrary.api.models.QueryResult
 import io.sylvanlibrary.api.utils.isHeaderHtml

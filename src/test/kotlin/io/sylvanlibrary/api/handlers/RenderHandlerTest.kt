@@ -2,7 +2,6 @@ package io.sylvanlibrary.api.handlers
 
 import io.sylvanlibrary.api.fixtures.SetFixture
 import io.sylvanlibrary.api.models.QueryResult
-import io.sylvanlibrary.api.renderers.RenderHandler
 import org.junit.Test
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.notNullValue
