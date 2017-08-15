@@ -1,12 +1,10 @@
 package io.sylvanlibrary.api.handlers
 
 import io.sylvanlibrary.api.models.RequestPagination
-import org.junit.Before
-import org.junit.Test
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
-import org.junit.runner.Request
-
+import org.junit.Before
+import org.junit.Test
 import ratpack.test.handling.RequestFixture
 
 class PaginationHandlerTest {
