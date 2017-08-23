@@ -6,17 +6,17 @@ import io.sylvanlibrary.api.repositories.SetRepository
 import java.util.*
 
 class SetServiceImpl @Inject constructor(val repo: SetRepository): SetService {
-  override fun index(queryParams: Map<String, String>): List<Set> {
+  override fun index(queryParams: Map<String, String>, limit: Int, from: Int): List<Set> {
     val name = Optional.ofNullable(queryParams["name"])
 
     return if (name.isPresent) {
-      repo.byName(name.get())
+      repo.byName(name.get(), limit, from)
     } else {
-      repo.all()
+      repo.all(limit, from)
     }
   }
 
-  override fun view(abbr: String): Optional<Set> {
-    return repo.byAbbr(abbr)
+  override fun view(abbr: String, limit: Int, from: Int): Optional<Set> {
+    return repo.byAbbr(abbr, limit, from)
   }
 }

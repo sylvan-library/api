@@ -6,21 +6,21 @@ import io.sylvanlibrary.api.models.Set
 import java.util.*
 
 class SetRepositoryImpl @Inject constructor(val conn: DbConnection): SetRepository {
-  override fun all(): List<Set> {
+  override fun all(limit: Int, from: Int): List<Set> {
     return conn.open(SetDao::class.java) { setDao ->
-      setDao.all()
+      setDao.all(limit, from)
     }
   }
 
-  override fun byName(name: String): List<Set> {
+  override fun byName(name: String, limit: Int, from: Int): List<Set> {
     return conn.open(SetDao::class.java) { setDao ->
-      setDao.byName("%$name%")
+      setDao.byName("%$name%", limit, from)
     }
   }
 
-  override fun byAbbr(abbr: String): Optional<Set> {
+  override fun byAbbr(abbr: String, limit: Int, from: Int): Optional<Set> {
     return conn.open(SetDao::class.java) { setDao ->
-      Optional.ofNullable(setDao.byAbbr(abbr))
+      Optional.ofNullable(setDao.byAbbr(abbr, limit, from))
     }
   }
 }

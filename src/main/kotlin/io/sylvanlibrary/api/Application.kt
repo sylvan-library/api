@@ -1,6 +1,7 @@
 package io.sylvanlibrary.api
 
-import io.sylvanlibrary.api.renderers.RenderHandler
+import io.sylvanlibrary.api.handlers.PaginationHandler
+import io.sylvanlibrary.api.handlers.RenderHandler
 import io.sylvanlibrary.api.repositories.StatusRepository
 import io.sylvanlibrary.api.services.SetHandlers
 import ratpack.guice.Guice
@@ -18,8 +19,8 @@ class Application {
             chain
               .prefix("sets") { sets ->
                 sets
-                  .get(Handlers.chain(SetHandlers.index(), RenderHandler()))
-                  .get(":abbr", Handlers.chain(SetHandlers.view(), RenderHandler()))
+                  .get(Handlers.chain(PaginationHandler(), SetHandlers.index(), RenderHandler()))
+                  .get(":abbr", Handlers.chain(PaginationHandler(), SetHandlers.view(), RenderHandler()))
               }
               .path("status/info") { ctx ->
                 val goodConnection = ctx.get(StatusRepository::class.java).check()
